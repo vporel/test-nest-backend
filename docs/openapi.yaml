@@ -1,0 +1,113 @@
+openapi: 3.1.0
+info:
+  title: Test nest backend
+  description: A slight api to test nestJS Backend framework
+  version: 0.1.0
+  contact:
+    name: Vporel
+    email: dev.vporel@gmail.com
+servers:
+  - url: http://localhost:3000
+    description: Development server
+  - url: http://testnestbackend.vporel.com
+    description: Production server
+tags:
+  - name: articles
+paths:
+  "/articles":
+    get:
+      tags: ["articles"]
+      operationId: get-all-articles
+      description: Get all articles
+      responses:
+        "200":
+          description: "All went well"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/article"
+    post:
+      tags: ["articles"]
+      operationId: create-article
+      description: Create an article
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/article"
+      responses:
+        "201":
+          description: "Article created"
+          
+  "/articles/{id}":
+    get:
+      tags: ["articles"]
+      operationId: get-article
+      description: Get a particular article
+      parameters:
+        - name: id
+          description: Article id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "Article found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/article"
+    patch:
+      tags: ["articles"]
+      operationId: update-article
+      description: Update an article
+      parameters:
+        - name: id
+          description: Article id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/article"
+      responses:
+        "200":
+          description: "Article updated"
+    delete:
+      tags: ["articles"]
+      operationId: delete-article
+      description: Delete an article
+      parameters:
+        - name: id
+          description: Article id
+          in: path
+          required: true
+          schema:
+            type: integer      
+      responses:
+        "200":
+          description: "Article deleted"
+        
+components:
+   schemas:
+     article:
+       type: object
+       description: "An article"
+       properties:
+         id: 
+           type: number
+         name: 
+           type: string
+         quantity: 
+           type: number
+         price: 
+           type: number
+         description: 
+           type: string
+       required: ["id", 'name', "quantity", "price"]
