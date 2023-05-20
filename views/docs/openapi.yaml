@@ -36,6 +36,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/article"
+              required: ["id", 'name', "quantity", "price"]
       responses:
         "201":
           description: "Article created"
@@ -110,4 +111,3 @@ components:
            type: number
          description: 
            type: string
-       required: ["id", 'name', "quantity", "price"]
